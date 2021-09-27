@@ -1,0 +1,203 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  /* Animate the color transition, changing the background faster as the color */
+  transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+a {
+  /*
+    Use the nearest defined color for the link;
+    Usefull when combined with css variables;
+  */
+  color: currentColor;
+  text-decoration: none;
+}
+
+header {
+  padding: 1em;
+  background: var(--bg-nav);
+  margin-bottom: 1em;
+  padding-bottom: 3.5em;
+  text-align: center;
+  /*
+    It is like putting points on the element to move them arround
+    The polygon allows to add multiple points and each argument represents
+    a point arround the header (x y)
+  */
+  clip-path: polygon(50% 0%, 100% 0, 100% 65%, 50% 100%, 50% 100%, 0 65%, 0 0);
+}
+
+main {
+  padding: 0 10px;
+}
+
+/* Navbar */
+.navbar {
+  height: 70px;
+  width: 100%;
+  background: var(--bg-nav);
+  color: var(--text);
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  /* To fills the parent navbar */
+  height: 100%;
+}
+
+/* Dropdown CSS only */
+.dropdown {
+  position: absolute;
+  width: 500px;
+  /* Set the dropdown as invisible */
+  opacity: 0;
+  /* To appear on top of the parent element (main navbar where it sits inside) */
+  z-index: 2;
+  background: var(--bg-dropdown);
+  border-top: 2px solid var(--border-color);
+  /* Round the bottom corners */
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 3rem;
+  margin-top: 2rem;
+  padding: 0.5rem;
+
+  /* To look better */
+  box-shadow: rgba(2, 8, 20, 0.1) 0px 0.175em 0.5em;
+
+  /* To center a little better underneath the parent */
+  transform: translateX(-40%);
+
+  /* To open the dropdown menu when focused, changing the opacity from 0 to 1 */
+  transition: opacity .15s ease-out;
+}
+
+/* To detect when a link inside the dropdown has focus */
+.has-dropdown:focus-within .dropdown {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Polishing the dowpdown links */
+.dropdown-item a {
+  width: 100%;
+  height: 100%;
+  size: 0.7rem;
+  padding-left: 10px;
+  font-weight: bold; 
+}
+
+/* Add an element before the element itself */
+.dropdown-item a::before {
+  content: ' ';
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/* To define the color inside the circles */
+#dark::before {
+  background: #2a2e35;
+}
+
+#light::before {
+  background: #ffffff;
+}
+
+#solar::before {
+  background: var(--bg-solar);
+}
+
+
+/* Themes */
+:root {
+  /* Better to define variables that don't change */
+  /* It could be a loot more of colors and variable on a real world application */
+  --gray0: #f8f8f8;
+  --gray1: #dbe1e8;
+  --gray2: #b2becd;
+  --gray3: #6c7983;
+  --gray4: #454e65;
+  --gray5: #2a2e35;
+  --gray6: #12181b;
+  --blue: #0084a5;
+  --purple: #a82dd1;
+  --yellow: #fff565;
+  /* Cool website to generate colors dinamically is coolors.co */
+}
+
+.light {
+  /* Define a variable using another variable */
+  --bg: var(--gray0);
+  --bg-nav: linear-gradient(to right, var(--gray1), var(--gray3));
+  --bg-dropdown: var(--gray0);
+  --text: var(--gray6);
+  --border-color: var(--blue);
+  --bg-solar: var(--yellow);
+}
+ 
+.dark {
+  --bg: var(--gray5);
+  --bg-nav: linear-gradient(to right, var(--gray5), var(--gray6));
+  --bg-dropdown: var(--gray6);
+  /* To get the contrast against the background */
+  --text: var(--gray0);
+  --border-color: var(--purple);
+  --bg-solar: var(--blue);
+}
+
+/*
+  Overwrite the variables itself, allowing to use the
+  existing light and dark mode to appear different (The contrast ratio need to be kept)
+*/
+.solar {
+  --gray0: #fbffd4;
+  --gray1: #f7f8d0;
+  --gray3: #6c7983;
+  --gray2: #5ec72d;
+  --gray4: #3ea565;
+  --gray5: #005398;
+  --gray6: #003d4c;
+}
+
+/* Logo animation (Rainbow effect)*/
+/* Rotate through the hue colors within the element */
+@keyframes color-rotate {
+  from{
+    filter: hue-rotate(0deg);
+  }
+  to{
+    filter: hue-rotate(360deg)
+  }
+}
+
+.logo{
+  width: 300px;
+  height: auto;
+}
+
+.logo:hover {
+  animation: color-rotate 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
